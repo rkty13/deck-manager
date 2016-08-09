@@ -6,6 +6,7 @@ from sqlalchemy import DateTime
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.orm import backref
+from sqlalchemy.sql import func
 from . import Base
 
 class DeckMeta(Base):
@@ -13,13 +14,12 @@ class DeckMeta(Base):
     id = Column(Integer, primary_key = True, autoincrement = True)
     title = Column(String(255))
     user_id = Column(Integer, ForeignKey("Users.id"))
-    date_created = Column(DateTime)
+    date_created = Column(DateTime(timezone = True), server_default = func.now())
     deck_cards = relationship("DeckCards", backref = "DeckMeta.id")
 
-    def __init__(self, title, user_id, date_created):
+    def __init__(self, title, user_id):
         self.title = title
         self.user_id = user_id
-        self.date_created = date_created
 
 
 class DeckCards(Base):
