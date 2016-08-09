@@ -1,11 +1,11 @@
 from sqlalchemy import Column
 from sqlalchemy import Integer
 from sqlalchemy import Text
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import relationship
+from . import Base
 
-Base = declarative_base()
-
-class Card(Base):
+class Cards(Base):
     __tablename__ = "Cards"
     id = Column(Integer, primary_key = True, autoincrement = True)
     title = Column(Text)

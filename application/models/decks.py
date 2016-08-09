@@ -3,9 +3,10 @@ from sqlalchemy import Integer
 from sqlalchemy import Text
 from sqlalchemy import String
 from sqlalchemy import DateTime
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import relationship
+from sqlalchemy.orm import backref
+from . import Base
 
 class DeckMeta(Base):
     __tablename__ = "DeckMeta"
@@ -13,7 +14,7 @@ class DeckMeta(Base):
     title = Column(String(255))
     created_by = Column(String(255))
     date_created = Column(DateTime)
-    deck_cards = relationship("DeckCards")
+    deck_cards = relationship("DeckCards", backref = "DeckMeta.id")
 
     def __init__(self, title, created_by, date_created):
         self.title = title
@@ -25,7 +26,7 @@ class DeckCards(Base):
     __tablename__ = "DeckCards"
     id = Column(Integer, primary_key = True, autoincrement = True)
     deck_id = Column(Integer, ForeignKey("DeckMeta.id"))
-    card_id = Column(Integer, ForeignKey("Card.id"))
+    card_id = Column(Integer, ForeignKey("Cards.id"))
     quantity = Column(Integer)
     deck_type = Column(String(255))
 
@@ -34,5 +35,3 @@ class DeckCards(Base):
         self.card_id = card_id
         self.quantity = quantity
         self.deck_type = deck_type
-
-        
