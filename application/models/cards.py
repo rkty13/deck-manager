@@ -22,17 +22,17 @@ class Card(Base):
     password = Column(Text)
     image_url = Column(Text)
 
-    def __init__(self, title, type, attack, defense, attribute, sub_type, desc, printing_code, level, pendulum_scale, pendulum_effect, password, image_url)
-        self.title = title 
-        self.type = type 
-        self.attack = attack 
-        self.defense = defense 
-        self.attribute = attribute 
-        self.sub_type = sub_type 
-        self.desc = desc 
-        self.printing_code = printing_code 
-        self.level = level 
-        self.pendulum_scale = pendulum_scale 
-        self.pendulum_effect = pendulum_effect 
-        self.password = password 
-        self.image_url = image_url 
+    def __init__(self, title, type, attack, defense, attribute, sub_type, desc, printing_code, level, pendulum_scale, pendulum_effect, password, image_url):
+        self.title = title
+        self.type = type
+        self.attack = attack
+        self.defense = defense
+        self.attribute = attribute
+        self.sub_type = sub_type
+        self.desc = desc
+        self.printing_code = printing_code
+        self.level = level
+        self.pendulum_scale = pendulum_scale
+        self.pendulum_effect = pendulum_effect
+        self.password = password
+        self.image_url = image_url
