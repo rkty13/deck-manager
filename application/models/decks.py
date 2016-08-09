@@ -12,13 +12,13 @@ class DeckMeta(Base):
     __tablename__ = "DeckMeta"
     id = Column(Integer, primary_key = True, autoincrement = True)
     title = Column(String(255))
-    created_by = Column(String(255))
+    user_id = Column(Integer, ForeignKey("Users.id"))
     date_created = Column(DateTime)
     deck_cards = relationship("DeckCards", backref = "DeckMeta.id")
 
-    def __init__(self, title, created_by, date_created):
+    def __init__(self, title, user_id, date_created):
         self.title = title
-        self.created_by = created_by
+        self.user_id = user_id
         self.date_created = date_created
 
 

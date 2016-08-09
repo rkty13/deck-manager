@@ -4,6 +4,9 @@ from sqlalchemy import Text
 from sqlalchemy import String
 from sqlalchemy import DateTime
 from sqlalchemy import Boolean
+from sqlalchemy.orm import relationship
+from sqlalchemy.orm import backref
+from . import Base
 
 class Users(Base):
     __tablename__ = "Users"
