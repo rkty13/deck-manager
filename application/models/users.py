@@ -6,6 +6,7 @@ from sqlalchemy import DateTime
 from sqlalchemy import Boolean
 from sqlalchemy.orm import relationship
 from sqlalchemy.orm import backref
+from sqlalchemy.sql import func
 from . import Base
 
 class Users(Base):
@@ -15,11 +16,10 @@ class Users(Base):
     email = Column(String(255))
     password = Column(String(255))
     premium = Column(Boolean, default = False, nullable = False)
-    date_created = Column(DateTime)
+    date_created = Column(DateTime(timezone = True), server_default = func.now())
     deck_meta = relationship("DeckMeta", backref = "Users.id")
 
-    def __init__(self, username, email, password, date_created):
+    def __init__(self, username, email, password):
         self.username = username
         self.email = email
         self.password = password
-        self.date_created = date_created
