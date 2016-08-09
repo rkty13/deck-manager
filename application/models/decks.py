@@ -1,28 +1,30 @@
 from sqlalchemy import Column
 from sqlalchemy import Integer
 from sqlalchemy import Text
+from sqlalchemy import String
+from sqlalchemy import DateTime
 from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base()
 
-class Card(Base):
-    __tablename__ = "Cards"
+class DeckMeta(Base):
+    __tablename__ = "DeckMeta"
     id = Column(Integer, primary_key = True, autoincrement = True)
-    title = Column(Text)
-    type = Column(Text)
-    attack = Column(Integer)
-    defense = Column(Integer)
-    attribute = Column(Text)
-    sub_type = Column(Text)
-    desc = Column(Text)
-    printing_code = Column(Text)
-    level = Column(Integer)
-    pendulum_scale = Column(Integer)
-    pendulum_effect = Column(Text)
-    password = Column(Text)
-    image_url = Column(Text)
+    title = Column(String(255))
+    created_by = Column(String(255))
+    date_created = Column(DateTime)
 
-    def __init__(self, title, type, attack, defense, attribute, sub_type, desc, printing_code, level, pendulum_scale, pendulum_effect, password, image_url):
+
+
+    def __init__(self):
+        
+
+class DeckCards(Base):
+    __tablename__ = "DeckCards"
+    id = Column(Integer, primary_key = True, autoincrement = True)
+    deck_id = Column(Integer, ForeignKey("DeckMeta.id"))
+
+    def __init__(self):
         self.title = title 
         self.type = type 
         self.attack = attack 
