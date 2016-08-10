@@ -1,4 +1,3 @@
-from datetime import datetime
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import OperationalError
 from sqlalchemy import create_engine
