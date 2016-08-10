@@ -1,4 +1,3 @@
-from datetime import datetime
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import OperationalError
 from sqlalchemy import create_engine
@@ -15,9 +14,9 @@ def create_user(username, email, password):
 
     try:
         session.add(new_user)
-        session.commit(new_user)
+        session.commit()
     except OperationalError:
         models.create_db(engine)
         session.add(new_user)
-        session.commit(new_user)
+        session.commit()
     session.close()
