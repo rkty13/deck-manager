@@ -2,9 +2,10 @@ from sqlalchemy.exc import OperationalError
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.orm.exc import MultipleResultsFound
 
+from . import engine
 from application import app
 from application import models
-from . import engine
+
 
 def create_user(username, email, password, session_object):
     session = session_object()
