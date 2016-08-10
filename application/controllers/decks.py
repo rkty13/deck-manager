@@ -1,3 +1,4 @@
+from sqlalchemy import and_
 from sqlalchemy.exc import OperationalError
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.orm.exc import MultipleResultsFound
@@ -64,3 +65,49 @@ def get_deck(deck_meta_id, session_object):
         return get_deck_helper()
     finally:
         session.close()
+
+def get_card_in_deck(deck_meta_id, card_id, session_object):
+    session = session_object()
+
+    def get_card_helper():
+        card = session.query(models.decks.DeckCards) \
+            .filter(and_(models.decks.DeckCards.card_id == card_id, 
+                            models.decks.DeckCards.deck_id == deck_meta_id)).one()
+        return card
+
+    try:
+        return get_card_helper()
+    except OperationalError:
+        models.create_db(engine)
+        return get_card_helper()
+    except MultipleResultsFound:
+        return None
+    except NoResultFound:
+        return None
+    finally:
+        session.close()
+
+def add_card_to_deck(deck_meta_id, card_id, deck_type, session_object):
+    session = session_object()
+
+    def add_card_helper():
+        card = get_card_in_deck(deck_meta_id, card_id, session_object)
+        if card is not None:
+            card.quantity += 1
+            return card
+        else:
+            new_card = models.decks.DeckCards(deck_meta_id, card_id, 1, deck_type)
+            return new_card
+
+    card = add_card_helper()
+    
+    try:
+        session.add(card)
+        session.commit()
+    except OperationalError:
+        models.create_db(engine)
+        session.add(card)
+        session.commit()
+    finally:
+        session.close()
+

@@ -1,8 +1,7 @@
-from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import OperationalError
 from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.orm.exc import MultipleResultsFound
-from sqlalchemy import create_engine
+
 from application import app
 from application import models
 from . import engine
